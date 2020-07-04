@@ -30,6 +30,13 @@ public abstract class AbstractUser {
     private String password;
 
     @Contract(pure = true)
+    public AbstractUser() {
+        this.id = 0;
+        this.username = "";
+        this.password = "";
+    }
+
+    @Contract(pure = true)
     public AbstractUser(
             int id,
             @NotNull @NotBlank(message = "用户名不能为空") @Pattern(regexp = "^[A-Za-z_]\\w{3,15}$") String username,

@@ -24,6 +24,9 @@ public class User extends AbstractUser {
     @Email(message = "请输入正确的邮箱")
     private String email;
 
+    public User() {
+    }
+
     public User(
             int id,
             @NotNull @NotBlank(message = "用户名不能为空") @Pattern(regexp = "^[A-Za-z_]\\w{3,15}$") String username,
@@ -76,5 +79,16 @@ public class User extends AbstractUser {
     @Override
     public int hashCode() {
         return Objects.hash(super.hashCode(), name, email);
+    }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "id=" + this.getId() +
+                ", username='" + this.getUsername() + '\'' +
+                ", password='" + this.getPassword() + '\'' +
+                ", name='" + name + '\'' +
+                ", email='" + email + '\'' +
+                "} ";
     }
 }
