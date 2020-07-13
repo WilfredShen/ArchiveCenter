@@ -3,58 +3,98 @@ package cn.wilfredshen.ac.server.entity;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-import javax.validation.constraints.Email;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.Pattern;
-import java.util.Objects;
+import java.sql.Timestamp;
 
-public class User extends AbstractUser {
+/**
+ * @author WilfredShen
+ */
+public class User {
+
+    /**
+     * entity id (auto generated)
+     */
+    @NotNull
+    private Integer uid = 0;
+
+    /**
+     * user name (4~16个字符)
+     */
+    @NotNull
+    private String username = "";
+
+    /**
+     * user password (md5)
+     */
+    @NotNull
+    private String password = "";
+
+    /**
+     * salt
+     */
+    @NotNull
+    private String salt = "";
 
     /**
      * real name (也许吧...)
      */
     @Nullable
-    @NotBlank(message = "姓名不能为空白")
-    private String name;
+    private String realname;
 
     /**
      * email address (可以为空，但是不为空时格式应当正确)
      */
     @Nullable
-    @Email(message = "请输入正确的邮箱")
     private String email;
 
-    public User() {
+    @NotNull
+    private Timestamp registerDatetime = new Timestamp(0);
+
+    @Nullable
+    private Timestamp latestLoginDatetime;
+
+    @NotNull
+    public Integer getUid() {
+        return uid;
     }
 
-    public User(
-            int id,
-            @NotNull @NotBlank(message = "用户名不能为空") @Pattern(regexp = "^[A-Za-z_]\\w{3,15}$") String username,
-            @NotNull @NotBlank(message = "密码不能为空") String password
-    ) {
-        super(id, username, password);
+    public void setUid(@NotNull Integer uid) {
+        this.uid = uid;
     }
 
-    public User(
-            int id,
-            @NotNull @NotBlank(message = "用户名不能为空") @Pattern(regexp = "^[A-Za-z_]\\w{3,15}$") String username,
-            @NotNull @NotBlank(message = "密码不能为空") String password,
-            @Nullable @NotBlank(message = "姓名不能为空白") String name,
-            @Nullable @Email(message = "请输入正确的邮箱") String email
-    ) {
-        super(id, username, password);
-        this.name = name;
-        this.email = email;
+    @NotNull
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(@NotNull String username) {
+        this.username = username;
+    }
+
+    @NotNull
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(@NotNull String password) {
+        this.password = password;
+    }
+
+    @NotNull
+    public String getSalt() {
+        return salt;
+    }
+
+    public void setSalt(@NotNull String salt) {
+        this.salt = salt;
     }
 
     @Nullable
-    @javax.validation.constraints.NotNull
-    public String getName() {
-        return name;
+    public String getRealname() {
+        return realname;
     }
 
-    public void setName(@Nullable String name) {
-        this.name = name;
+    public void setRealname(@Nullable String realname) {
+        this.realname = realname;
     }
 
     @Nullable
@@ -66,29 +106,21 @@ public class User extends AbstractUser {
         this.email = email;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof User)) return false;
-        if (!super.equals(o)) return false;
-        User user = (User) o;
-        return Objects.equals(name, user.name) &&
-                Objects.equals(email, user.email);
+    @NotNull
+    public Timestamp getRegisterDatetime() {
+        return registerDatetime;
     }
 
-    @Override
-    public int hashCode() {
-        return Objects.hash(super.hashCode(), name, email);
+    public void setRegisterDatetime(@NotNull Timestamp registerDatetime) {
+        this.registerDatetime = registerDatetime;
     }
 
-    @Override
-    public String toString() {
-        return "User{" +
-                "id=" + this.getId() +
-                ", username='" + this.getUsername() + '\'' +
-                ", password='" + this.getPassword() + '\'' +
-                ", name='" + name + '\'' +
-                ", email='" + email + '\'' +
-                "} ";
+    @Nullable
+    public Timestamp getLatestLoginDatetime() {
+        return latestLoginDatetime;
+    }
+
+    public void setLatestLoginDatetime(@Nullable Timestamp latestLoginDatetime) {
+        this.latestLoginDatetime = latestLoginDatetime;
     }
 }

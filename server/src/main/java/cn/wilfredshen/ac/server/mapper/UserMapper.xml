@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="cn.wilfredshen.ac.server.mapper.UserMapper">
+    <!-- insert -->
+    <insert id="register" parameterType="cn.wilfredshen.ac.server.dto.user.UserDTO">
+        INSERT INTO user (username, password, salt, realname, email, register_datetime, latest_login_datetime)
+        VALUES (#{username}, #{password}, #{salt}, #{realname}, #{email}, now(), null);
+    </insert>
+
+    <!-- delete -->
+
+    <!-- update -->
+    <update id="login" parameterType="cn.wilfredshen.ac.server.dto.base.UserBaseDTO">
+        UPDATE user
+        SET latest_login_datetime = now()
+        WHERE username = #{username};
+    </update>
+
+    <!-- select -->
+    <select id="getPasswordAndSaltByUsername" resultType="cn.wilfredshen.ac.server.dto.user.UserLoginDTO">
+        SELECT (password, salt)
+        FROM user
+        WHERE username = #{username}
+        LIMIT 1;
+    </select>
+</mapper>
