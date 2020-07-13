@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpSession;
@@ -27,7 +26,6 @@ public class LoginController {
     private UserService userService;
 
     @PostMapping("/api/user/register")
-    @ResponseBody
     public Result register(@RequestBody UserDTO userDTO) {
         boolean success = userService.register(userDTO);
         if (success) {
@@ -38,7 +36,6 @@ public class LoginController {
     }
 
     @PostMapping("/api/user/login")
-    @ResponseBody
     public Result login(@RequestBody UserLoginDTO userLoginDTO, HttpSession session) {
         if (session != null) {
             System.out.println(session);
@@ -53,7 +50,6 @@ public class LoginController {
     }
 
     @GetMapping("/api/user/logout")
-    @ResponseBody
     public Result logout(UserBaseDTO userBaseDTO) {
         boolean success = userService.logout(userBaseDTO);
         if (success) {
@@ -64,7 +60,6 @@ public class LoginController {
     }
 
     @GetMapping("/api/user/authentication")
-    @ResponseBody
     public Result authentication(UserBaseDTO userBaseDTO) {
         return ResultFactory.buildSuccessResult("authentication success", null);
     }
